@@ -9,7 +9,7 @@ const PendingAlertsContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
 `;
 
-const PendingAlerts = ({ incomingAlert }) => {
+const PendingAlerts = ({ userId, incomingAlert }) => {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +23,7 @@ const PendingAlerts = ({ incomingAlert }) => {
       try {
         const { data } = await axiosClient.post(
           "/fetchAlerts",
-          { userId: "62ea763917931d21428ddc76" },
+          { userId: userId },
           {
             withCredentials: true,
           }
