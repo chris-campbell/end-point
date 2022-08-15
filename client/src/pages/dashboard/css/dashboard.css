@@ -1,0 +1,92 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.dashboard .input-item {
+  margin-top: 5rem;
+  max-width: 900px;
+}
+
+.send-list-count {
+  font-size: 0.8rem;
+  margin-right: 0.6rem;
+  margin-left: 1.4rem;
+}
+
+/* ================
+  Send List Avatars 
+================ */
+
+.send-list-render {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-left: 1rem;
+  margin-top: 0.6rem;
+}
+
+#search {
+  margin: 30px 0;
+}
+
+#send-btn {
+  width: 1rem;
+}
+
+#send-btn:active {
+  width: 0.91rem;
+}
+
+.contact-suggestion-list {
+  z-index: 84;
+  position: relative;
+  background: #fff;
+  max-height: 143px;
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 7px;
+  background: #fff;
+  width: 95%;
+  box-shadow: 13px 14px 8px -10px rgb(0 0 0 / 34%);
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  justify-content: center;
+}
+
+.pagination .page-link {
+  color: var(--primary-color-red);
+}
+
+.pagination .page-link:hover {
+  color: #fff;
+  background: var(--secondary-color);
+  border: 1px var(--secondary-color);
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
