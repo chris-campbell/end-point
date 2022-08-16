@@ -1,7 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const scaleInCard = keyframes`
+  0% { transform: scale(0) }
+ 100% { transform: scale(1.0) }
+`;
 
 const CardContainer = styled.article`
+  animation-name: ${scaleInCard};
+  animation-duration: 1s;
+
   .card-wrapper {
     img {
       width: 100%;
