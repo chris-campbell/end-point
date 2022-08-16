@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-const ENDPOINT = "http://laymanns.com:4000";
+const ENDPOINT = "http://localhost:4000";
 
 const ws = io.connect(ENDPOINT, {
   query: {

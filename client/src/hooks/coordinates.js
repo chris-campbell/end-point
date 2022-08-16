@@ -14,6 +14,8 @@ const useCoordinates = () => {
   const userLocation = async () => {
     try {
       const coords = await getLocationPromise;
+
+      console.log(coords);
       setUserCoordinates(coords);
     } catch (error) {
       console.log(error);
@@ -27,6 +29,7 @@ export default useCoordinates;
 
 let getLocationPromise = new Promise((resolve, reject) => {
   if (navigator.geolocation) {
+    console.log({ navigator });
     navigator.geolocation.getCurrentPosition((position) => {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;

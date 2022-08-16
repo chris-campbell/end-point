@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import { useCurrentUser } from "../../context/UserContext";
 import { Rings } from "react-loader-spinner";
 import slugify from "react-slugify";
@@ -16,7 +15,6 @@ import useCoordinates from "../../hooks/coordinates";
 import searchHandler from "./js/searchHandler";
 import { ws } from "./js/socket";
 import styled from "styled-components";
-import Pagination from "./components/pagination/Pagination";
 
 const DashboardContainer = styled.div`
   .dashboard-wrapper {
@@ -38,8 +36,8 @@ const Dashboard = () => {
   const [incomingAlert, setIncomingAlert] = useState([]);
   const [alertsCount, setAlertsCount] = useState(0);
   const [showSuggestionArea, setShowSuggestionArea] = useState(false);
+
   const suggestionBox = useRef(null);
-  const { setAuth } = useAuth();
   const { currentUser, loading } = useCurrentUser();
   const { userCoordinates, isLoading } = useCoordinates();
   const location = useLocation();
@@ -59,7 +57,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     socket.current.on("send_alert", (res) => {
-      console.log(res);
       setAlertsCount(res.alerts[0].alerts.length);
       setIncomingAlert(res.alert);
     });
