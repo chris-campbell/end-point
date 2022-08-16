@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useCurrentUser } from "../../context/UserContext";
-import { Audio } from "react-loader-spinner";
+import { Rings } from "react-loader-spinner";
 import slugify from "react-slugify";
 
 import AlertSender from "./components/alertSender/AlertSender";
@@ -16,12 +16,17 @@ import useCoordinates from "../../hooks/coordinates";
 import searchHandler from "./js/searchHandler";
 import { ws } from "./js/socket";
 import styled from "styled-components";
+import Pagination from "./components/pagination/Pagination";
 
 const DashboardContainer = styled.div`
   .dashboard-wrapper {
-    max-width: 1200px;
+    max-width: 980px;
     margin: 0 auto;
   }
+`;
+
+const RingLoader = styled(Rings)`
+  margin: 0 auto;
 `;
 
 const Dashboard = () => {
@@ -31,9 +36,9 @@ const Dashboard = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [coordinates, setCoordinates] = useState({});
   const [incomingAlert, setIncomingAlert] = useState([]);
+  const [alertsCount, setAlertsCount] = useState(0);
   const [showSuggestionArea, setShowSuggestionArea] = useState(false);
   const suggestionBox = useRef(null);
-
   const { setAuth } = useAuth();
   const { currentUser, loading } = useCurrentUser();
   const { userCoordinates, isLoading } = useCoordinates();
@@ -54,8 +59,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     socket.current.on("send_alert", (res) => {
-      console.log(alert);
-      setIncomingAlert(res.alerts);
+      console.log(res);
+      setAlertsCount(res.alerts[0].alerts.length);
+      setIncomingAlert(res.alert);
     });
   }, []);
 
@@ -111,7 +117,7 @@ const Dashboard = () => {
     console.log("User already in alert list (replace with alert");
   };
 
-  if (loading) return <Audio />;
+  if (loading) return <RingLoader color="#ac1111" />;
 
   return (
     <DashboardContainer className="dashboard-container">
@@ -134,9 +140,9 @@ const Dashboard = () => {
           userId={currentUser._id}
           loading={loading}
           incomingAlert={incomingAlert}
+          alertsCount={alertsCount}
+          setAlertsCount={setAlertsCount}
         />
-
-        <button onClick>Logout</button>
       </div>
     </DashboardContainer>
   );

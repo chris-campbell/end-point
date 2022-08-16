@@ -1,4 +1,12 @@
 import React from "react";
+import styled from "styled-components";
+
+const PaginationContainer = styled.nav`
+  margin-top: 2rem;
+  li a {
+    font-size: 1.1rem;
+  }
+`;
 
 const Pagination = ({ alertsPerPage, totalAlerts, paginate }) => {
   const pageNumbers = [];
@@ -7,7 +15,7 @@ const Pagination = ({ alertsPerPage, totalAlerts, paginate }) => {
     pageNumbers.push(i);
   }
   return (
-    <nav aria-label="...">
+    <PaginationContainer aria-label="...">
       <ul className="pagination pagination-sm">
         {pageNumbers.map((num) => (
           <li className="page-item">
@@ -22,7 +30,7 @@ const Pagination = ({ alertsPerPage, totalAlerts, paginate }) => {
           </li>
         ))}
       </ul>
-    </nav>
+    </PaginationContainer>
   );
 };
 
