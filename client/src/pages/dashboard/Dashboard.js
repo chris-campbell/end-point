@@ -105,17 +105,6 @@ const Dashboard = () => {
 
   if (loading) return <Audio />;
 
-  const logout = async () => {
-    try {
-      await axiosClient.delete("/logoutUser", credentials);
-      localStorage.setItem("userAuth", JSON.stringify(false));
-      localStorage.clear();
-      setAuth(null);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-wrapper">
@@ -139,7 +128,7 @@ const Dashboard = () => {
           incomingAlert={incomingAlert}
         />
 
-        <button onClick={logout}>Logout</button>
+        <button onClick>Logout</button>
       </div>
     </div>
   );
