@@ -1,87 +1,79 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+import styled from "styled-components";
 import Logo from "./img/logo.svg";
-import Bell from "./img/bell.svg";
-import AuthContext from "../../context/AuthContext";
-import { Link, Redirect } from "react-router-dom";
-import axios from "axios";
-// import CurrentUserContext from "../../context/UserContext";
-import "./css/Navbar.css";
+import axiosClient from "../../utils/apiClient";
+import { useAuth } from "../../context/AuthContext";
+import { useCurrentUser } from "../../context/UserContext";
 
-function Navbar() {
-  const { getLoggedIn } = useContext(AuthContext);
-  // const { user, setUser } = useContext(CurrentUserContext);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(async () => {
-    await updateCurrentUser();
-    setIsLoading(false);
-  }, []);
-
-  const updateCurrentUser = async () => {
-    const userData = await axios.get("/currentUser");
-    // setUser(userData);
-  };
-
-  function capFirstChar(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+const NavbarContainer = styled.div`
+  background-color: var(--primary-color-red);
+  .navbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    padding: 1rem 0;
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .avatar img {
+        border-radius: 2rem;
+        border: 1px solid var(--accent-light);
+      }
+      .logout-btn {
+        padding: 0.5rem;
+        font-size: 1rem;
+        background-color: transparent;
+        border: none;
+        color: var(--accent-light);
+        cursor: pointer;
+        letter-spacing: 0.05rem;
+        &:hover {
+          transition: 400ms all ease-in-out;
+          opacity: 0.8;
+        }
+      }
+    }
   }
+`;
 
-  const logOut = async () => {
-    await axios.get("http://localhost:4000/users/logout");
+const Navbar = () => {
+  const { auth, setAuth } = useAuth();
+  const { currentUser } = useCurrentUser();
+  const credentials = { withCredentials: true };
 
-    await getLoggedIn();
-
-    return <Redirect to="/login" />;
+  const logout = async () => {
+    try {
+      await axiosClient.delete("/logoutUser", credentials);
+      localStorage.setItem("userAuth", JSON.stringify(false));
+      localStorage.clear();
+      setAuth(null);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
-    <nav className="nav">
-      <div className="nav-wrapper">
-        <img className="logo" alt="logo" src={Logo} />
-
-        <div className="notification-icon">
-          <div className="notify">
-            <img className="nav-icon" alt="notification-bell" src={Bell} />
-            {/* {user.data.alerts.length <= 0 ? null : (
-              <div className="notification-count">
-                {user.data.alerts.length}
-              </div>
-            )} */}
+    <NavbarContainer>
+      {auth ? (
+        <div className="navbar-wrapper">
+          <div>
+            <img src={Logo} width={55} height={55} />
+          </div>
+          <div className="navbar-links">
+            <div className="avatar">
+              <img src={currentUser.image} width={40} height={40} />
+            </div>
+            <button className="logout-btn" onClick={logout}>
+              Logout
+            </button>
           </div>
         </div>
-        <ul className="main-nav">
-          <li>
-            <div className="dropdown">
-              <img
-                className="avatar btn btn-secondary dropdown-toggle"
-                alt="user-avatar"
-                // src={user.data.image}
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              />
-              {/* {console.log(user.data.image)} */}
-              <div
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <Link className="dropdown-item" onClick={logOut} to="/login">
-                  Logout
-                </Link>
-              </div>
-            </div>
-          </li>
-          {/* <li className="username">{capFirstChar(user.data.firstName)}</li> */}
-        </ul>
-      </div>
-    </nav>
+      ) : null}
+    </NavbarContainer>
   );
-}
+};
 
 export default Navbar;
