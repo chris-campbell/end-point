@@ -21,6 +21,7 @@ const NavbarContainer = styled.div`
       .avatar img {
         border-radius: 2rem;
         border: 1px solid var(--accent-light);
+        object-fit: cover;
       }
       .logout-btn {
         padding: 0.5rem;

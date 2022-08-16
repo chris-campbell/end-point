@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axiosClient from "../../../utils/apiClient";
 
 const AvatarInputContainer = styled.div`
   margin-bottom: 1rem;
@@ -23,11 +24,30 @@ const AvatarInputContainer = styled.div`
 const AvatarInput = ({ setType, setState }) => {
   const [filename, setFilename] = useState("");
 
-  const handleAvatarChange = (e) => {
-    const files = e.target.files[0];
+  const onAddImage = async (e) => {
+    e.preventDefault();
 
-    files && setFilename(e.target.files[0].name);
-    setState(e.target.files[0], setType);
+    const file = e.target.files[0];
+    setFilename(e.target.files[0].name);
+
+    const image = new FormData();
+
+    image.append("image", file);
+
+    const headers = {
+      Authorization: "Client-ID 7939250da82f389",
+    };
+
+    const urlData = await axiosClient.post(
+      "https://api.imgur.com/3/image/",
+      image,
+      {
+        headers: headers,
+      }
+    );
+    const url = urlData.data.data.link;
+
+    setState(url, setType);
   };
 
   return (
@@ -37,7 +57,7 @@ const AvatarInput = ({ setType, setState }) => {
         name="avatar"
         id="img"
         title=" "
-        onChange={(e) => handleAvatarChange(e)}
+        onChange={(e) => onAddImage(e)}
       />
       <label for="img">{filename || "Upload avatar"} </label>
     </AvatarInputContainer>
