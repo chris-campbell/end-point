@@ -15,6 +15,14 @@ import useCoordinates from "../../hooks/coordinates";
 
 import searchHandler from "./js/searchHandler";
 import { ws } from "./js/socket";
+import styled from "styled-components";
+
+const DashboardContainer = styled.div`
+  .dashboard-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+`;
 
 const Dashboard = () => {
   const [sendList, setSendList] = useState([]);
@@ -106,7 +114,7 @@ const Dashboard = () => {
   if (loading) return <Audio />;
 
   return (
-    <div className="dashboard-container">
+    <DashboardContainer className="dashboard-container">
       <div className="dashboard-wrapper">
         <AlertSender sendList={sendList} />
         <SearchForm
@@ -130,7 +138,7 @@ const Dashboard = () => {
 
         <button onClick>Logout</button>
       </div>
-    </div>
+    </DashboardContainer>
   );
 };
 

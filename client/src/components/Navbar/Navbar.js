@@ -64,7 +64,11 @@ const Navbar = () => {
           </div>
           <div className="navbar-links">
             <div className="avatar">
-              <img src={currentUser.image} width={40} height={40} />
+              <img
+                src={currentUser && currentUser.image}
+                width={40}
+                height={40}
+              />
             </div>
             <button className="logout-btn" onClick={logout}>
               Logout
