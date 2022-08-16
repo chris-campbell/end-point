@@ -50,7 +50,7 @@ const PendingAlerts = ({ userId, incomingAlert }) => {
       ) : (
         alerts &&
         alerts.map((alert) => {
-          return <Card {...alert} />;
+          return <Card key={alert._id} {...alert} />;
         })
       )}
     </PendingAlertsContainer>
