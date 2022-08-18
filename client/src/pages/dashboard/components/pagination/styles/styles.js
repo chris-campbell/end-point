@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const PaginationContainer = styled.nav`
-  margin-top: 4rem;
+  margin-top: 7rem;
   li a {
     font-size: 1.1rem;
   }
