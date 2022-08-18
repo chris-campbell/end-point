@@ -1,13 +1,13 @@
 import React from "react";
 import Sender from "../../img/sender.svg";
 import AlertSenderContainer from "./styles/styles";
+import SendAvatar from "./sendAvatar/SendAvatar";
 
 import { sendAlerts } from "../../js/socketCommands";
 import { useCurrentUser } from "../../../../context/UserContext";
 import { ws } from "../../js/socket";
 
 const AlertSender = ({ sendList }) => {
-  // Socket instance
   const socket = ws;
 
   const { currentUser } = useCurrentUser();
@@ -28,7 +28,7 @@ const AlertSender = ({ sendList }) => {
         </div>
         <ul className="outgoing-alerts">
           {sendList.map((user) => (
-            <img src={user.image} />
+            <SendAvatar key={user._id} image={user.image} />
           ))}
         </ul>
       </div>

@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axiosClient from "../utils/apiClient";
+import useErrors from "../hooks/useErrors";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(undefined);
+  const { setError } = useErrors();
 
   const getAuth = async () => {
     try {
@@ -14,7 +16,7 @@ export const AuthProvider = ({ children }) => {
 
       return setAuth(authValue.data);
     } catch (error) {
-      console.log(error.response);
+      setError(error.response);
     }
   };
 

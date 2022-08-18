@@ -15,6 +15,7 @@ import useErrors from "../../hooks/useErrors";
 import { useSnackbar } from "notistack";
 
 import searchHandler from "./js/searchHandler";
+import { recievedAlert, addContactToList } from "./js/utils/actions";
 import { ws } from "./js/socket";
 
 const Dashboard = () => {
@@ -66,7 +67,7 @@ const Dashboard = () => {
     socket.current.on("send_alert", (res) => {
       setAlertsCount(res.alerts[0].alerts.length);
       setIncomingAlert(res.alert);
-      recievedAlert(res.alert.firstName, res.alert.lastName);
+      recievedAlert(enqueueSnackbar, res.alert.firstName, res.alert.lastName);
     });
   }, []);
 
@@ -107,10 +108,6 @@ const Dashboard = () => {
     isLoading && setCoordinates(userCoordinates);
   }, [userCoordinates]);
 
-  const recievedAlert = (firstname, lastname) => {
-    enqueueSnackbar(`Alert from ${firstname} ${lastname}`);
-  };
-
   const getSearchTerm = () => {
     searchHandler(
       inputRef.current.value,
@@ -119,10 +116,6 @@ const Dashboard = () => {
       setShowSuggestionArea,
       contacts
     );
-  };
-
-  const addContactToList = (contact) => {
-    setSendList((list) => [...list, contact]);
   };
 
   const addToSenderList = (e) => {
@@ -137,7 +130,7 @@ const Dashboard = () => {
     setShowSuggestionArea(false);
 
     if (!isContactInList) {
-      addContactToList(contact[0]);
+      addContactToList(setSendList, contact[0]);
 
       return setSearchTerm(
         `${contact[0].firstName} ${contact[0].lastName} - ${contact[0].address}`

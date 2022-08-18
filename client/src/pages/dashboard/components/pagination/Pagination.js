@@ -1,12 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-
-const PaginationContainer = styled.nav`
-  margin-top: 4rem;
-  li a {
-    font-size: 1.1rem;
-  }
-`;
+import PaginationContainer from "./styles/styles";
 
 const Pagination = ({ alertsPerPage, totalAlerts, paginate }) => {
   const pageNumbers = [];

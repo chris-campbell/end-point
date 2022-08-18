@@ -1,6 +1,6 @@
 import axiosClient from "../utils/apiClient";
 import React, { useEffect, useRef } from "react";
-import { Audio } from "react-loader-spinner";
+
 export const CurrentUserContext = React.createContext();
 
 export const CurrentUserProvider = ({ children }) => {
@@ -27,8 +27,6 @@ export const CurrentUserProvider = ({ children }) => {
       console.log(error);
     }
   };
-
-  // if (currentUser === null) return <Audio />;
 
   return (
     <CurrentUserContext.Provider

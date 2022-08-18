@@ -2,19 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Card from "../card/Card";
 import axiosClient from "../../../../utils/apiClient";
 import Pagination from "../pagination/Pagination";
-import styled from "styled-components";
-import { Rings } from "react-loader-spinner";
-
-const PendingAlertsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-`;
-
-const RingLoader = styled(Rings)`
-  display: flex;
-  justify-content: center;
-`;
+import * as S from "./styles/styles";
 
 const PendingAlerts = ({
   userId,
@@ -74,10 +62,10 @@ const PendingAlerts = ({
 
   return (
     <>
-      <PendingAlertsContainer>
+      <S.PendingAlertsContainer>
         {loading ? (
           <div style={style}>
-            <RingLoader color="#ac1111" />
+            <S.RingLoader color="#ac1111" />
           </div>
         ) : (
           alerts &&
@@ -85,7 +73,7 @@ const PendingAlerts = ({
             return <Card key={alert._id} {...alert} />;
           })
         )}
-      </PendingAlertsContainer>
+      </S.PendingAlertsContainer>
 
       <Pagination
         alertsPerPage={alertsPerPage}

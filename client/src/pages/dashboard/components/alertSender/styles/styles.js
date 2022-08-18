@@ -14,7 +14,7 @@ const AlertSenderContainer = styled.div`
         letter-spacing: 0.02rem;
         .queue-count {
           font-weight: 600;
-          color: var(--primary-color-red);
+          color: var(--accent-dark);
           margin-right: 0.5rem;
         }
       }
@@ -27,6 +27,9 @@ const AlertSenderContainer = styled.div`
         object-fit: cover;
         border-radius: 10rem;
         margin-left: 0.3rem;
+        box-shadow: 10px 10px 10px -8px rgba(0, 0, 0, 0.48);
+        -webkit-box-shadow: 10px 10px 10px -8px rgba(0, 0, 0, 0.48);
+        -moz-box-shadow: 10px 10px 10px -8px rgba(0, 0, 0, 0.48);
         &:first-child {
           margin-left: 0;
         }

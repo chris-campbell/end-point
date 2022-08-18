@@ -1,8 +1,11 @@
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import useErrors from "./useErrors";
 
 const useCoordinates = () => {
   const [userCoordinates, setUserCoordinates] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setError } = useErrors();
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,7 +21,7 @@ const useCoordinates = () => {
       console.log(coords);
       setUserCoordinates(coords);
     } catch (error) {
-      console.log(error);
+      setError(error);
     }
   };
 
