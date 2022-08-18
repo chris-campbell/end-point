@@ -10,7 +10,7 @@ const SuggestionContainer = styled.li`
   align-items: center;
   gap: 1rem;
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: -8px;
   }
   img {
     width: 50px;

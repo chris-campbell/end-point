@@ -51,8 +51,12 @@ const loginUser = (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await User.find({});
-  return res.send(users);
+  try {
+    const users = await User.find({});
+    return res.send(users);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 };
 
 const isUserLoggedIn = async (req, res) => {

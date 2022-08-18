@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import * as S from "./styles/styles";
 import { useLocation } from "react-router-dom";
 import { useCurrentUser } from "../../context/UserContext";
-import { Rings } from "react-loader-spinner";
 import slugify from "react-slugify";
 
 import AlertSender from "./components/alertSender/AlertSender";
@@ -11,23 +11,14 @@ import PendingAlerts from "./components/pendingAlerts/PendingAlerts";
 
 import axiosClient from "../../utils/apiClient";
 import useCoordinates from "../../hooks/coordinates";
+import useErrors from "../../hooks/useErrors";
+import { useSnackbar } from "notistack";
 
 import searchHandler from "./js/searchHandler";
 import { ws } from "./js/socket";
-import styled from "styled-components";
-
-const DashboardContainer = styled.div`
-  .dashboard-wrapper {
-    max-width: 980px;
-    margin: 0 auto;
-  }
-`;
-
-const RingLoader = styled(Rings)`
-  margin: 0 auto;
-`;
 
 const Dashboard = () => {
+  // Application state
   const [sendList, setSendList] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,31 +28,58 @@ const Dashboard = () => {
   const [alertsCount, setAlertsCount] = useState(0);
   const [showSuggestionArea, setShowSuggestionArea] = useState(false);
 
+  // Ref declarations
   const suggestionBox = useRef(null);
-  const { currentUser, loading } = useCurrentUser();
-  const { userCoordinates, isLoading } = useCoordinates();
-  const location = useLocation();
-
   const inputRef = useRef(null);
   const socket = useRef(ws);
-  const credentials = { withCredentials: true };
 
+  // Hooks inplementation
+  const { currentUser, loading } = useCurrentUser();
+  const { userCoordinates, isLoading } = useCoordinates();
+  const { enqueueSnackbar } = useSnackbar();
+  const { error, setError } = useErrors();
+  const location = useLocation();
+
+  const cred = { withCredentials: true };
+
+  /**
+   * Fetch and set all contacts for suggestion box
+   */
   useEffect(() => {
     const fetchContacts = async () => {
-      const { data } = await axiosClient.get("/getAllUsers", credentials);
-      setContacts(data);
+      try {
+        const { data } = await axiosClient.get("/getAllUsers", cred);
+
+        setContacts(data);
+      } catch (error) {
+        setError(error.response.data);
+      }
     };
 
     fetchContacts();
-  }, [location.pathname]);
+  }, []);
 
+  /**
+   * Set incoming alert dataand send notification
+   */
   useEffect(() => {
     socket.current.on("send_alert", (res) => {
       setAlertsCount(res.alerts[0].alerts.length);
       setIncomingAlert(res.alert);
+      recievedAlert(res.alert.firstName, res.alert.lastName);
     });
   }, []);
 
+  /**
+   * Setup current user coordinates
+   */
+  useEffect(() => {
+    error && enqueueSnackbar(error, { variant: "error" });
+  }, [error]);
+
+  /*
+   * Set socket data to user
+   */
   useEffect(() => {
     const attachSocket = async () => {
       const { _id, firstName, lastName } = currentUser;
@@ -73,18 +91,25 @@ const Dashboard = () => {
       };
 
       try {
-        await axiosClient.post("/addSocket", userData, credentials);
+        await axiosClient.post("/addSocket", userData, cred);
       } catch (error) {
-        console.log(error.response);
+        setError(error);
       }
     };
-
+    console.log("socket");
     currentUser && attachSocket();
   }, [socket, currentUser, location.pathname]);
 
+  /*
+   * Setup current user coordinates
+   */
   useEffect(() => {
     isLoading && setCoordinates(userCoordinates);
   }, [userCoordinates]);
+
+  const recievedAlert = (firstname, lastname) => {
+    enqueueSnackbar(`Alert from ${firstname} ${lastname}`);
+  };
 
   const getSearchTerm = () => {
     searchHandler(
@@ -96,28 +121,41 @@ const Dashboard = () => {
     );
   };
 
-  const getUser = (e) => {
-    const userId = e.currentTarget.getAttribute("data-id");
+  const addContactToList = (contact) => {
+    setSendList((list) => [...list, contact]);
+  };
 
-    // Gets user from fetched list retrieved from DB
-    const user = contacts.filter((user) => user._id === userId);
-    const sendUsers = sendList.filter((user) => user._id === userId);
+  const addToSenderList = (e) => {
+    const contactId = e.currentTarget.getAttribute("data-id");
 
-    // Check if user already in send list
-    if (sendUsers.length === 0) {
-      setSendList((sendList) => [...sendList, user[0]]);
+    const contact = contacts.filter((contact) => contact._id === contactId);
+    const isContactInList = sendList.filter((user) => user._id === contactId)
+      .length;
+
+    // Set form and contact suggestion box to initial state
+    setSearchTerm("");
+    setShowSuggestionArea(false);
+
+    if (!isContactInList) {
+      addContactToList(contact[0]);
+
       return setSearchTerm(
-        `${user[0].firstName} ${user[0].lastName} - ${user[0].address}`
+        `${contact[0].firstName} ${contact[0].lastName} - ${contact[0].address}`
       );
     }
 
-    console.log("User already in alert list (replace with alert");
+    setError("User already in alert list.");
   };
 
-  if (loading) return <RingLoader color="#ac1111" />;
+  const resetSuggestions = () => {
+    setShowSuggestionArea(false);
+    setSearchTerm("");
+  };
+
+  if (loading) return <S.RingLoader color="#ac1111" />;
 
   return (
-    <DashboardContainer className="dashboard-container">
+    <S.DashboardContainer className="dashboard-container">
       <div className="dashboard-wrapper">
         <AlertSender sendList={sendList} />
         <SearchForm
@@ -130,7 +168,9 @@ const Dashboard = () => {
           searchResults={searchResults}
           suggestionBox={suggestionBox}
           currentUserLocation={coordinates}
-          addToSendList={getUser}
+          addToSendList={addToSenderList}
+          showSuggestionArea={showSuggestionArea}
+          reset={resetSuggestions}
         />
 
         <PendingAlerts
@@ -141,7 +181,7 @@ const Dashboard = () => {
           setAlertsCount={setAlertsCount}
         />
       </div>
-    </DashboardContainer>
+    </S.DashboardContainer>
   );
 };
 

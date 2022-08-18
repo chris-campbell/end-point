@@ -1,18 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import Router from "./Router";
-import { useCurrentUser } from "./context/UserContext";
-import "./index.css";
 import Navbar from "./components/Navbar/Navbar";
+import { SnackbarProvider } from "notistack";
+import "./index.css";
 
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Router />
-    </div>
+    <>
+      <SnackbarProvider>
+        <Navbar />
+        <Router />
+      </SnackbarProvider>
+    </>
   );
 }
 
