@@ -96,7 +96,7 @@ const Dashboard = () => {
         setError(error);
       }
     };
-    console.log("socket");
+
     currentUser && attachSocket();
   }, [socket, currentUser, location.pathname]);
 
