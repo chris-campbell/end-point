@@ -1,33 +1,36 @@
 import styled from "styled-components";
 
 const LoginContainer = styled.div`
-  background: var(--primary-color-red);
-  height: 100vh;
+  background-color: var(--primary-color-red);
+  min-height: 100vh;
 
   .login-wrapper {
-    width: 60%;
-    margin: 0 auto;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    .login-logo {
-      width: 4rem;
+    align-items: center;
+    .contain {
+      width: 100%;
+      max-width: 35rem;
+      padding-inline: 1rem;
+      .signup {
+        padding-inline: 1rem;
+      }
+    }
+
+    img {
+      display: block;
+      text-align: center;
       margin: 0 auto;
-      margin-bottom: 3rem;
-      margin-top: 8rem;
+      margin-bottom: 2rem;
     }
 
-    .register-user {
+    .not-registered {
       color: var(--accent-light);
-    }
-
-    .register-link {
-      color: var(--secondary-color);
-      text-decoration: none;
-    }
-
-    .text-field::-webkit-input-placeholder {
-      color: var(--accent-light);
+      margin-top: 1rem;
+      .registered-link {
+        color: var(--secondary-color);
+      }
     }
   }
 `;

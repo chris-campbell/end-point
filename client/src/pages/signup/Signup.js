@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SignupForm from "./signupForm/SignupForm";
 import SignupContainer from "./styles/styles";
@@ -70,7 +70,9 @@ const Signup = () => {
               rhoncus mi aliquet quis. Nam vehicula turpis ut elit rutrum
               gravida.
             </p>
-            <button>Sign In</button>
+            <button>
+              <Link to="/login">Sign In</Link>
+            </button>
           </div>
         </div>
 

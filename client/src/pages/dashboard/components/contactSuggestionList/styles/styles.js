@@ -12,7 +12,8 @@ const ContactSuggestions = styled.div`
   box-shadow: 10px 10px 24px -7px rgba(0, 0, 0, 0.78);
   -webkit-box-shadow: 10px 10px 24px -7px rgba(0, 0, 0, 0.78);
   -moz-box-shadow: 10px 10px 24px -7px rgba(0, 0, 0, 0.78);
-
+  position: absolute;
+  top: 16rem;
   &::-webkit-scrollbar {
     background-color: transparent;
   }

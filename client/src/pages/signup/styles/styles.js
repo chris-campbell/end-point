@@ -53,6 +53,11 @@ const SignupContainer = styled.div`
           background-color: transparent;
           border: 1px solid var(--accent-light);
           color: var(--accent-light);
+          a {
+            text-decoration: none;
+            color: #fff;
+            padding: 1rem;
+          }
         }
       }
     }

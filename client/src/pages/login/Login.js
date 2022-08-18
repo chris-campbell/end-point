@@ -1,20 +1,21 @@
 import React, { useState } from "react";
+import loginCred from "./js/loginState";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
+import LoginForm1 from "./loginForm/LoginForm";
 import axiosClient from "../../utils/apiClient";
 import { useAuth } from "../../context/AuthContext";
-import Logo from "./img/logo.svg";
-import LoginForm from "./loginForm/LoginForm";
-import loginCred from "./js/loginState";
-import LoginContainer from "./styles/styles";
+import { useNavigate } from "react-router";
 import { useCurrentUser } from "../../context/UserContext";
+import Logo from "./img/logo.svg";
+import LoginContainer from "./styles/styles";
 
 const Login = () => {
   const [state, setState] = useState(loginCred);
-  let navigate = useNavigate();
-  const { fetchCurrentUser } = useCurrentUser();
 
   const { setAuth } = useAuth();
+  const { fetchCurrentUser } = useCurrentUser();
+
+  let navigate = useNavigate();
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -42,17 +43,19 @@ const Login = () => {
   return (
     <LoginContainer className="login">
       <div className="login-wrapper">
-        <img alt="logo" src={Logo} className="login-logo" />
-
-        <LoginForm loginUser={loginUser} updateState={updateState} />
-
-        <p className="register-user">
-          Not Registered, sign up{" "}
-          <Link className="register-link" to="/">
-            here
-          </Link>
-          .
-        </p>
+        <div className="contain">
+          <img alt="logo" src={Logo} className="login-logo" width={65} />
+          <LoginForm1 loginUser={loginUser} updateState={updateState} />
+          <div className="signup">
+            <p className="not-registered">
+              Not Registered, sign up{" "}
+              <Link className="registered-link" to="/">
+                here
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
       </div>
     </LoginContainer>
   );

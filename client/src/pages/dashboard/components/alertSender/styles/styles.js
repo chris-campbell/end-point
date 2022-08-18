@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const AlertSenderContainer = styled.div`
   .alert-sender-wrapper {
-    padding: 2rem 0 0 0;
+    padding: 2rem 1rem 0 1rem;
     .send-console {
       display: flex;
       align-items: center;

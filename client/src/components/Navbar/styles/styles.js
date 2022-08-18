@@ -8,7 +8,7 @@ const NavbarContainer = styled.div`
     max-width: 1200px;
     margin: 0 auto;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     .navbar-links {
       display: flex;
       align-items: center;
