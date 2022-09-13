@@ -5,6 +5,7 @@ const Alert = require("./src/models/alertModel");
 
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const path = require("path");
 
 // Initializing the server
 const app = require("express")();
@@ -110,6 +111,18 @@ io.on("connection", async (socket) => {
 const userRoutes = require("./src/routes/userRouter.js");
 const alertRoutes = require("./src/routes/alertRouter.js");
 const User = require("./src/models/userModel.js");
+
+//-----------------Deployment--------------------------
+
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "client/build")));
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running successfully");
+  });
+}
 
 // Routes middleware
 app.use("/", userRoutes);

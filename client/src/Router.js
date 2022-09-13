@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import NotFound404 from "./pages/404/NotFound404";
+// import NotFound404 from "./pages/404/NotFound404";
 import RequireAuth from "./components/auth/AuthRoutes";
 
 const Router = () => {
@@ -16,7 +16,7 @@ const Router = () => {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
-        <Route path="*" element={<NotFound404 />} />
+        {/* <Route path="*" element={<NotFound404 />} /> */}
       </Routes>
     </BrowserRouter>
   );
