@@ -114,9 +114,12 @@ const userRoutes = require("./src/routes/userRouter.js");
 const alertRoutes = require("./src/routes/alertRouter.js");
 const User = require("./src/models/userModel.js");
 
+// Routes middleware
+app.use("/", userRoutes);
+app.use("/", alertRoutes);
+
 //-----------------Deployment--------------------------
 
-const __dirname1 = path.resolve();
 if (process.env.NODE_ENV === "production") {
   //Set Staticfolder
   app.use(express.static("client/build"));
@@ -125,10 +128,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-
-// Routes middleware
-app.use("/", userRoutes);
-app.use("/", alertRoutes);
 
 // Server
 const PORT = process.env.PORT || 4000;
