@@ -1,5 +1,3 @@
-import { newAlertNotification } from "../../../utils/notification";
-
 export const receiveAlert = async (socket, updateCurrentUser) => {
   socket.off("alert_sender").on("alert_sender", async (message) => {
     socket.emit("store_alert_to_db", message);
