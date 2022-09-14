@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-const ENDPOINT = "https://uppoint-socket.herokuapp.com ";
+const ENDPOINT = "https://uppoint-socket.herokuapp.com";
 
 const ws = io.connect(ENDPOINT, {
   query: {
