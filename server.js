@@ -11,7 +11,7 @@ const path = require("path");
 const app = require("express")();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
-  cors: { origin: "https://uppoint-socket.herokuapp.com/", credentials: true },
+  cors: { origin: "https://uppoint-socket.herokuapp.com", credentials: true },
 });
 
 // Core Application middleware
@@ -20,7 +20,7 @@ app.use(express.json());
 
 const cors = require("cors");
 app.use(
-  cors({ origin: ["https://uppoint-socket.herokuapp.com/"], credentials: true })
+  cors({ origin: ["https://uppoint-socket.herokuapp.com"], credentials: true })
 );
 app.use(fileUpload());
 
