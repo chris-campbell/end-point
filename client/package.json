@@ -43,7 +43,7 @@
     "validator": "^13.6.0",
     "web-vitals": "^1.1.2"
   },
-  "proxy": "https://uppoint-socket.herokuapp.com/",
+  "proxy": "https:/addToSenderList/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
