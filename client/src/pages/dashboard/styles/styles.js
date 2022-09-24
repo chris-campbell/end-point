@@ -5,6 +5,7 @@ export const DashboardContainer = styled.div`
   .dashboard-wrapper {
     max-width: 980px;
     margin: 0 auto;
+    min-height: 100vh;
   }
 `;
 

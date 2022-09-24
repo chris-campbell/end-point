@@ -69,7 +69,7 @@ const Dashboard = () => {
       setIncomingAlert(res.alert);
       recievedAlert(enqueueSnackbar, res.alert.firstName, res.alert.lastName);
     });
-  }, []);
+  }, [location.pathname, enqueueSnackbar]);
 
   /**
    * Setup current user coordinates
