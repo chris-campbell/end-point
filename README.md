@@ -16,7 +16,7 @@ I had to overcome my learning curve for using sockets while at the same time try
 #### What I've Done:
 
 - Built a Restful API for managing user and alert end points using express server.
-- Implement Passport middleware to handle user authentication.
+- Implemented Passport middleware to handle user authentication.
 - Handled user sessions using express-sessions and MongoDb Sessions.
 - Established a bidirectional connection between client and server to create a real-time experience.
 - Utilized React context to allow access to user object throughout application.
