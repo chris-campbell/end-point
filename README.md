@@ -13,8 +13,8 @@ I had to overcome my learning curve for using sockets while at the same time try
 ![Uppoint demo](https://user-images.githubusercontent.com/16828559/192122227-5bc3da1d-753d-4797-b2af-2bb516495e73.gif)
 
 
-
-- Uses Express to serve api
-- Uses Socket.IO to push alerts and notifications to the user in real-time.
-- Uses Json Web tokens to authorize each notification push to other users of the 
-  application.
+- Built a Restful API for managing user and alert end points using express server.
+- Implement Passport middleware to handle user authentication.
+- Handled user sessions using express-sessions and MongoDb Sessions.
+- Established a bidirectional connection between client and server to create a real-time experience.
+- Utilized React context to allow access to user object throughout application.
