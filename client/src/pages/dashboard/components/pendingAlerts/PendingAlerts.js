@@ -72,7 +72,7 @@ const PendingAlerts = ({
             return <Card key={alert._id} {...alert} />;
           })
         ) : (
-          <div>No alerts yet...</div>
+          <div>No alerts yet..</div>
         )}
       </S.PendingAlertsContainer>
 
