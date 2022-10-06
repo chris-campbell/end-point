@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import emailUnique from "../../js/uniqueEmail";
 
 const Button = ({ emailUnique, isFieldsEmpty }) => {
   const fieldsEmpty = isFieldsEmpty();
@@ -22,7 +21,8 @@ export default Button;
 
 const Shell = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-top: 3rem;
 `;
 
 const ButtonContainer = styled.button`

@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-function LoginInput({onChange, type, placeholder}) {
+function LoginInput({ onChange, type, placeholder }) {
   return (
     <TextField
       type={type}
@@ -9,7 +9,7 @@ function LoginInput({onChange, type, placeholder}) {
       placeholder={placeholder}
       onChange={onChange}
     />
-  )
+  );
 }
 
-export default LoginInput
+export default LoginInput;

@@ -66,9 +66,8 @@ const Signup = () => {
             />
             <h1>Join the search!</h1>
             <p>
-              Sed pharetra dapibus consequat. Integer dictum lorem dolor, non
-              rhoncus mi aliquet quis. Nam vehicula turpis ut elit rutrum
-              gravida.
+              This was a fun project that was a test of using web sockets to
+              allow users to send real-time alerts from other users.
             </p>
             <button>
               <Link to="/login">Sign In</Link>

@@ -37,6 +37,8 @@ const SignupContainer = styled.div`
           text-transform: uppercase;
           color: var(--secondary-color);
           text-align: center;
+          font-size: clamp(1.3rem, 2vw, 2rem);
+          font-weight: 600;
         }
 
         p {
@@ -47,7 +49,6 @@ const SignupContainer = styled.div`
         }
 
         button {
-          padding: 0.9rem 4rem;
           border-radius: 2rem;
           max-width: fit-content;
           background-color: transparent;

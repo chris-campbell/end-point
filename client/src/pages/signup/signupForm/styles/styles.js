@@ -28,6 +28,7 @@ const SignupFormContainer = styled.form`
       margin-bottom: 2rem;
       text-transform: uppercase;
       text-align: center;
+      font-weight: 600;
     }
   }
 `;
