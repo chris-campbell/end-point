@@ -67,11 +67,12 @@ const PendingAlerts = ({
           <div style={style}>
             <S.RingLoader color="#ac1111" />
           </div>
-        ) : (
-          alerts &&
+        ) : alerts ? (
           currentAlerts.map((alert) => {
             return <Card key={alert._id} {...alert} />;
           })
+        ) : (
+          <div>No alerts yet...</div>
         )}
       </S.PendingAlertsContainer>
 
